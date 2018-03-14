@@ -4,6 +4,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const Comment = require('./model/comments');
 
 // create instances
 const app = express();
@@ -11,6 +12,12 @@ const router = express.Router();
 
 // set port to either a predetermined port number or 3001
 const port = process.env.API_PORT || 3001;
+
+// db config
+const mongoDB = 'mongodb://test-user:o&Bbg1i6$JW8G@ds213229.mlab.com:13229/mern-comment-box';
+mongoose.connect(mongoDB, { useMongoClient: true });
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error'));
 
 // congiures the API to use bodyParser and look for JSON data in req body
 app.use(bodyParser.urlencoded({ extended: true }));
